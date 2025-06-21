@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: webhook-stripe
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python webhook_server.py
+    envVars:
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: ARQUIVO_USUARIOS
+        value: usuarios.csv
+      - key: FIREBASE_ADMIN_TYPE
+        sync: false
+      - key: FIREBASE_ADMIN_PROJECT_ID
+        sync: false
+      - key: FIREBASE_ADMIN_PRIVATE_KEY_ID
+        sync: false
+      - key: FIREBASE_ADMIN_PRIVATE_KEY
+        sync: false
+      - key: FIREBASE_ADMIN_CLIENT_EMAIL
+        sync: false
+      - key: FIREBASE_ADMIN_CLIENT_ID
+        sync: false
+      - key: FIREBASE_ADMIN_AUTH_URI
+        sync: false
+      - key: FIREBASE_ADMIN_TOKEN_URI
+        sync: false
+      - key: FIREBASE_ADMIN_AUTH_PROVIDER_X509_CERT_URL
+        sync: false
+      - key: FIREBASE_ADMIN_CLIENT_X509_CERT_URL
+        sync: false

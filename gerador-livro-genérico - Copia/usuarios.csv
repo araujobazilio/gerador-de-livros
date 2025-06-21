@@ -1,0 +1,2 @@
+email,status,data_pagamento,valor,produto,metadata
+teste@exemplo.com,pago,2025-06-20T20:00:00,97.00,Premium,"{""user_id"":""123456"",""tipo_compra"":""vitalicio""}"

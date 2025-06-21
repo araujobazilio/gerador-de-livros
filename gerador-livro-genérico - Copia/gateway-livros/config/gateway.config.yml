@@ -1,0 +1,24 @@
+http:
+  port: 8080
+
+apiEndpoints:
+  livros:
+    path: /livros
+    target: http://host.docker.internal:8501
+    methods: GET, POST
+
+serviceEndpoints:
+  livros:
+    url: http://host.docker.internal:8501
+
+policies:
+  - proxy
+
+pipelines:
+  default:
+    apiEndpoints:
+      - livros
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: livros

@@ -1,0 +1,187 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Test and coverage
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Logs
+logs/
+*.log
+
+# Local development
+*.db
+*.sqlite3
+
+# Firebase
+firebase-credentials.json
+firebase-debug.log
+
+# Stripe
+stripe.log
+
+# Livros gerados
+livros_gerados/
+*.txt
+*.md
+*.pdf
+*.epub
+*.mobi
+
+# Arquivos temporários
+.temp/
+tmp/
+
+# Node.js
+node_modules/
+gateway-livros/node_modules/
+gateway-livros/.env
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de configuração local
+local_settings.py
+db.sqlite3
+
+# Arquivos de cache
+.cache/
+
+# Arquivos de ambiente virtual
+venv/
+ENV/
+
+# Arquivos de IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Arquivos de log
+*.log
+
+# Arquivos de banco de dados
+*.sqlite3
+*.db
+
+# Arquivos de cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribuição / empacotamento
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Arquivos de ambiente
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Arquivos de configuração local
+local_settings.py
+db.sqlite3
+
+# Arquivos de cache
+.cache/
+
+# Arquivos de IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Arquivos de log
+*.log
+
+# Arquivos de banco de dados
+*.sqlite3
+*.db
+
+# Arquivos de cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribuição / empacotamento
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
