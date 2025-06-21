@@ -1,6 +1,59 @@
 services:
+  # Serviço do aplicativo Streamlit principal
   - type: web
-    name: webhook-stripe
+    name: gerador-de-livros
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run streamlit_app.py --server.port $PORT --server.address 0.0.0.0
+    envVars:
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_PAYMENT_LINK
+        sync: false
+      - key: ARQUIVO_USUARIOS
+        value: usuarios.csv
+      - key: APP_URL
+        value: https://gerador-de-livros.onrender.com
+      - key: FIREBASE_API_KEY
+        sync: false
+      - key: FIREBASE_AUTH_DOMAIN
+        sync: false
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+      - key: FIREBASE_STORAGE_BUCKET
+        sync: false
+      - key: FIREBASE_MESSAGING_SENDER_ID
+        sync: false
+      - key: FIREBASE_APP_ID
+        sync: false
+      - key: FIREBASE_MEASUREMENT_ID
+        sync: false
+      - key: FIREBASE_ADMIN_TYPE
+        sync: false
+      - key: FIREBASE_ADMIN_PROJECT_ID
+        sync: false
+      - key: FIREBASE_ADMIN_PRIVATE_KEY_ID
+        sync: false
+      - key: FIREBASE_ADMIN_PRIVATE_KEY
+        sync: false
+      - key: FIREBASE_ADMIN_CLIENT_EMAIL
+        sync: false
+      - key: FIREBASE_ADMIN_CLIENT_ID
+        sync: false
+      - key: FIREBASE_ADMIN_AUTH_URI
+        sync: false
+      - key: FIREBASE_ADMIN_TOKEN_URI
+        sync: false
+      - key: FIREBASE_ADMIN_AUTH_PROVIDER_X509_CERT_URL
+        sync: false
+      - key: FIREBASE_ADMIN_CLIENT_X509_CERT_URL
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+        
+  # Serviço do webhook do Stripe
+  - type: web
+    name: gerador-de-livros-webhook
     env: python
     buildCommand: pip install -r requirements.txt
     startCommand: python webhook_server.py
