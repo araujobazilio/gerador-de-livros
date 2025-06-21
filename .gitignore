@@ -89,6 +89,7 @@ db.sqlite3
 # Arquivos de ambiente virtual
 venv/
 ENV/
+.env.example
 
 # Arquivos de IDE
 .idea/
