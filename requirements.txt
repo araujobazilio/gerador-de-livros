@@ -3,7 +3,6 @@ streamlit
 python-dotenv
 firebase-admin
 stripe
-openai>=1.13.3
 pandas
 
 # Outras dependências essenciais
@@ -22,5 +21,3 @@ bcrypt==4.0.1 --only-binary=:all:
 
 # Dependências para geração de conteúdo
 crewai>=0.14.0
-langchain-openai
-langchain
