@@ -21,8 +21,4 @@ bcrypt --only-binary=:all:
 # python-jose[cryptography]==3.3.0
 
 # Dependências para geração de conteúdo
-crewai>=0.14.0
-# groq
-# black
-# flake8
-# isort
+crewai==0.14.0
