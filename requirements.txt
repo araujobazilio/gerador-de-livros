@@ -3,7 +3,7 @@ streamlit
 python-dotenv
 firebase-admin
 stripe
-openai==1.3.0
+openai>=1.13.3
 pandas
 
 # Outras dependências essenciais
