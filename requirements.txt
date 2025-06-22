@@ -1,30 +1,30 @@
 # Dependências principais
-streamlit==1.32.0
-python-dotenv==1.0.0
-firebase-admin==6.2.0
-stripe==7.0.0
-openai>=1.13.3
-pandas==2.0.3
+streamlit
+python-dotenv
+firebase-admin
+stripe
+openai
+pandas
 
 # Outras dependências essenciais
-requests==2.31.0
-markdown==3.4.0
-PyJWT==2.8.0
-python-dateutil==2.8.2
-pydantic==2.0.0
+requests
+markdown
+PyJWT
+python-dateutil
+pydantic
 
 # Usando versões binárias ou alternativas sem Rust
-cryptography==39.0.0 --only-binary=:all:
-bcrypt==4.0.1 --only-binary=:all:
+cryptography --only-binary=:all:
+bcrypt --only-binary=:all:
 
 # Dependências comentadas que podem ser problemáticas
 # python-jose[cryptography]==3.3.0
 
 # Dependências para geração de conteúdo
-crewai>=0.114.0
+crewai
 langchain-openai
 langchain
 # groq
-# black==23.0.0
-# flake8==6.0.0
-# isort==5.12.0
+# black
+# flake8
+# isort
