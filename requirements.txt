@@ -15,9 +15,9 @@ pydantic==2.0.0
 
 # Usando versões binárias ou alternativas sem Rust
 cryptography==39.0.0 --only-binary=:all:
+bcrypt==4.0.1 --only-binary=:all:
 
-# Removendo dependências que requerem Rust
-# bcrypt==4.0.1
+# Dependências comentadas que podem ser problemáticas
 # python-jose[cryptography]==3.3.0
 
 # Comentando as dependências problemáticas para o deploy inicial
