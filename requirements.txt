@@ -20,11 +20,11 @@ bcrypt==4.0.1 --only-binary=:all:
 # Dependências comentadas que podem ser problemáticas
 # python-jose[cryptography]==3.3.0
 
-# Comentando as dependências problemáticas para o deploy inicial
-# crewai>=0.114.0
+# Dependências para geração de conteúdo
+crewai>=0.114.0
+langchain-openai
+langchain
 # groq
-# langchain-openai
-# langchain
 # black==23.0.0
 # flake8==6.0.0
 # isort==5.12.0
