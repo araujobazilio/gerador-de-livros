@@ -20,10 +20,8 @@ bcrypt --only-binary=:all:
 # Dependências comentadas que podem ser problemáticas
 # python-jose[cryptography]==3.3.0
 
-# Dependências para geração de conteúdo (comentadas temporariamente)
-# crewai
-# langchain-openai
-# langchain
+# Dependências para geração de conteúdo
+crewai>=0.14.0
 # groq
 # black
 # flake8
