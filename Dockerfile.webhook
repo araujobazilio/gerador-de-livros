@@ -1,0 +1,22 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Instalar dependências do sistema necessárias
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copiar apenas os arquivos necessários para o webhook
+COPY webhook_server.py .
+COPY webhook_handler.py .
+COPY requirements.webhook.txt ./requirements.txt
+
+# Instalar dependências Python específicas para o webhook
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expor a porta que o webhook usa
+EXPOSE 5000
+
+# Comando para iniciar o servidor webhook
+CMD ["python", "webhook_server.py"]

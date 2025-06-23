@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    ports:
+      - "8501:8501"
+    environment:
+      - STRIPE_API_KEY=${STRIPE_API_KEY}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+      - STRIPE_PAYMENT_LINK=${STRIPE_PAYMENT_LINK}
+      - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - WEBHOOK_URL=http://webhook:5000/webhook
+    depends_on:
+      - webhook
+    volumes:
+      - ./data:/app/data
+
+  webhook:
+    build:
+      context: .
+      dockerfile: Dockerfile.webhook
+    ports:
+      - "5000:5000"
+    environment:
+      - STRIPE_API_KEY=${STRIPE_API_KEY}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+      - FIREBASE_CREDENTIALS=${FIREBASE_CREDENTIALS}
+    volumes:
+      - ./data:/app/data

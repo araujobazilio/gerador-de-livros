@@ -2,9 +2,9 @@ services:
   # Serviço do aplicativo Streamlit principal
   - type: web
     name: gerador-de-livros
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: streamlit run streamlit_app.py --server.port $PORT --server.address 0.0.0.0
+    env: docker
+    dockerfilePath: ./Dockerfile.streamlit
+    dockerContext: .
     envVars:
       - key: STRIPE_SECRET_KEY
         sync: false
@@ -54,9 +54,9 @@ services:
   # Serviço do webhook do Stripe
   - type: web
     name: gerador-de-livros-webhook
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: python webhook_server.py
+    env: docker
+    dockerfilePath: ./Dockerfile.webhook
+    dockerContext: .
     envVars:
       - key: STRIPE_SECRET_KEY
         sync: false
