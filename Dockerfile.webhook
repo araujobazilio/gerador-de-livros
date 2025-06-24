@@ -13,7 +13,8 @@ COPY webhook_handler.py .
 COPY requirements.webhook.txt ./requirements.txt
 
 # Instalar dependências Python específicas para o webhook
-RUN pip install --no-cache-dir -r requirements.txt
+# Configurar pip com timeout maior e mais tentativas de retry
+RUN pip install --no-cache-dir --timeout 300 --retries 5 -r requirements.txt
 
 # Expor a porta que o webhook usa
 EXPOSE 5000

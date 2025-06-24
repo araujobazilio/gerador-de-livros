@@ -13,9 +13,9 @@ RUN apt-get update && apt-get install -y \
 # Copiar requirements primeiro para aproveitar o cache do Docker
 COPY requirements.txt .
 
-# Instalar dependências Python
-RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install --no-cache-dir openai>=1.13.3 langchain langchain-openai
+# Instalar dependências Python com configurações de retry e timeout
+RUN pip install --no-cache-dir --timeout 300 --retries 5 -r requirements.txt
+RUN pip install --no-cache-dir --timeout 300 --retries 5 openai>=1.13.3 langchain langchain-openai
 
 # Copiar o restante do código
 COPY . .
