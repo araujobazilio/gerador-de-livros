@@ -19,25 +19,20 @@ STRIPE_PAYMENT_LINK = os.getenv("STRIPE_PAYMENT_LINK", "https://buy.stripe.com/s
 try:
     firebase_admin.get_app()
 except ValueError:
-    # Use um arquivo de credenciais ou variáveis de ambiente
-    firebase_credentials = os.getenv("FIREBASE_CREDENTIALS")
-    if firebase_credentials:
-        cred = credentials.Certificate(firebase_credentials)
-    else:
-        # Fallback para variáveis de ambiente individuais
-        cred = credentials.Certificate({
-            "type": "service_account",  # Definir explicitamente como service_account
-            "project_id": os.getenv("FIREBASE_ADMIN_PROJECT_ID"),
-            "private_key_id": os.getenv("FIREBASE_ADMIN_PRIVATE_KEY_ID"),
-            "private_key": os.getenv("FIREBASE_ADMIN_PRIVATE_KEY", "").replace("\\n", "\n"),
-            "client_email": os.getenv("FIREBASE_ADMIN_CLIENT_EMAIL"),
-            "client_id": os.getenv("FIREBASE_ADMIN_CLIENT_ID"),
-            "auth_uri": os.getenv("FIREBASE_ADMIN_AUTH_URI"),
-            "token_uri": os.getenv("FIREBASE_ADMIN_TOKEN_URI"),
-            "auth_provider_x509_cert_url": os.getenv("FIREBASE_ADMIN_AUTH_PROVIDER_X509_CERT_URL"),
-            "client_x509_cert_url": os.getenv("FIREBASE_ADMIN_CLIENT_X509_CERT_URL")
+    # Inicialização simplificada do Firebase
+    # Opção 1: Usar o ID do projeto diretamente sem credenciais
+    firebase_project_id = os.getenv("FIREBASE_PROJECT_ID")
+    if firebase_project_id:
+        # Inicialização simplificada apenas com o ID do projeto
+        # Isso funciona para operações básicas de leitura em ambientes onde 
+        # o Cloud Run tem permissões para acessar o Firestore
+        firebase_admin.initialize_app(options={
+            'projectId': firebase_project_id,
         })
-    firebase_admin.initialize_app(cred)
+    else:
+        st.error("FIREBASE_PROJECT_ID não configurado. O aplicativo pode não funcionar corretamente.")
+        # Inicialização vazia para evitar erros
+        firebase_admin.initialize_app()
 
 db = firestore.client()
 
