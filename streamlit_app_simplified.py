@@ -26,7 +26,7 @@ except ValueError:
     else:
         # Fallback para variáveis de ambiente individuais
         cred = credentials.Certificate({
-            "type": os.getenv("FIREBASE_ADMIN_TYPE"),
+            "type": "service_account",  # Definir explicitamente como service_account
             "project_id": os.getenv("FIREBASE_ADMIN_PROJECT_ID"),
             "private_key_id": os.getenv("FIREBASE_ADMIN_PRIVATE_KEY_ID"),
             "private_key": os.getenv("FIREBASE_ADMIN_PRIVATE_KEY", "").replace("\\n", "\n"),
