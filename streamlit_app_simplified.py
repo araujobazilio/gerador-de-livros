@@ -16,25 +16,15 @@ stripe.api_key = os.getenv("STRIPE_API_KEY")
 STRIPE_PAYMENT_LINK = os.getenv("STRIPE_PAYMENT_LINK", "https://buy.stripe.com/seu_link_aqui")
 
 # Inicializar Firebase
-try:
-    firebase_admin.get_app()
-except ValueError:
-    # Inicialização simplificada do Firebase
-    # Opção 1: Usar o ID do projeto diretamente sem credenciais
-    firebase_project_id = os.getenv("FIREBASE_PROJECT_ID")
-    if firebase_project_id:
-        # Inicialização simplificada apenas com o ID do projeto
-        # Isso funciona para operações básicas de leitura em ambientes onde 
-        # o Cloud Run tem permissões para acessar o Firestore
-        firebase_admin.initialize_app(options={
-            'projectId': firebase_project_id,
-        })
-    else:
-        st.error("FIREBASE_PROJECT_ID não configurado. O aplicativo pode não funcionar corretamente.")
-        # Inicialização vazia para evitar erros
-        firebase_admin.initialize_app()
+# Desativando temporariamente a inicialização do Firebase Admin SDK
+# para evitar problemas de permissão no Cloud Run
 
-db = firestore.client()
+# Variável global para simular o banco de dados
+db = None
+
+# Função para simular o acesso ao Firestore
+def get_firestore_db():
+    return None  # Retorna None para indicar que não estamos usando Firestore
 
 # Função para verificar assinatura no CSV
 def verificar_assinatura_csv(email):
@@ -49,31 +39,43 @@ def verificar_assinatura_csv(email):
         st.error(f"Erro ao verificar CSV: {e}")
         return False
 
-# Função para verificar assinatura no Firestore
+# Função para verificar assinatura no Firestore (desativada)
 def verificar_assinatura_firestore(email):
-    try:
-        doc_ref = db.collection('usuarios').document(email)
-        doc = doc_ref.get()
-        if doc.exists:
-            dados = doc.to_dict()
-            return dados.get('assinatura_ativa', False)
-        return False
-    except Exception as e:
-        st.error(f"Erro ao verificar Firestore: {e}")
-        return False
+    # Fallback para o CSV já que o Firestore está com problemas de permissão
+    return verificar_assinatura_csv(email)
 
-# Função para atualizar status de assinatura no Firestore
+# Função para atualizar status de assinatura no Firestore (desativada)
 def atualizar_assinatura_firestore(email, status=True):
+    # Usamos apenas o CSV por enquanto
     try:
-        doc_ref = db.collection('usuarios').document(email)
-        doc_ref.set({
-            'email': email,
-            'assinatura_ativa': status,
-            'data_atualizacao': datetime.now().isoformat()
-        }, merge=True)
+        # Verificar se o arquivo existe
+        arquivo_usuarios = os.getenv("ARQUIVO_USUARIOS", "usuarios.csv")
+        
+        # Carregar dados existentes ou criar um novo DataFrame
+        try:
+            df = pd.read_csv(arquivo_usuarios)
+        except FileNotFoundError:
+            df = pd.DataFrame(columns=['email', 'assinatura_ativa', 'data_atualizacao'])
+        
+        # Verificar se o email já existe no DataFrame
+        if email in df['email'].values:
+            # Atualizar o registro existente
+            df.loc[df['email'] == email, 'assinatura_ativa'] = status
+            df.loc[df['email'] == email, 'data_atualizacao'] = datetime.now().isoformat()
+        else:
+            # Adicionar novo registro
+            novo_registro = pd.DataFrame({
+                'email': [email],
+                'assinatura_ativa': [status],
+                'data_atualizacao': [datetime.now().isoformat()]
+            })
+            df = pd.concat([df, novo_registro], ignore_index=True)
+        
+        # Salvar o DataFrame atualizado
+        df.to_csv(arquivo_usuarios, index=False)
         return True
     except Exception as e:
-        st.error(f"Erro ao atualizar Firestore: {e}")
+        st.error(f"Erro ao atualizar arquivo CSV: {e}")
         return False
 
 # Função para exibir tela de assinatura
