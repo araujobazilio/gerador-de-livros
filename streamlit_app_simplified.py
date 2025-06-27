@@ -94,6 +94,9 @@ def exibir_tela_assinatura():
                     st.session_state.assinatura_ativa = True
                     st.success("✅ Sua assinatura está ativa!")
                     st.balloons()
+                    # Redirecionar para a página principal após confirmar assinatura
+                    st.session_state.pagina = 'principal'
+                    st.rerun()  # Força o Streamlit a recarregar a página
                     return
                 else:
                     st.warning("⚠️ Você ainda não possui uma assinatura ativa.")
@@ -120,6 +123,8 @@ def exibir_tela_assinatura():
                             st.session_state.assinatura_ativa = True
                             st.success("✅ Pagamento confirmado! Sua assinatura está ativa.")
                             st.balloons()
+                            # Redirecionar para a página principal após confirmar pagamento
+                            st.session_state.pagina = 'principal'
                             st.rerun()
                         else:
                             st.error("❌ Não foi possível verificar seu pagamento. Tente novamente mais tarde.")
