@@ -214,20 +214,23 @@ class WebhookHandler(BaseHTTPRequestHandler):
             self.wfile.write(b'Not Found')
 
 def run(server_class=HTTPServer, handler_class=WebhookHandler, port=None):
-    # Inicializar o arquivo CSV
-    inicializar_arquivo_csv()
-    
-    # Usar a variável de ambiente PORT para compatibilidade com o Render
-    port = int(os.getenv("PORT", 5000))
-    server_address = ('', port)
-    httpd = server_class(server_address, handler_class)
-    
-    print(f'🚀 Servidor de webhook rodando na porta {port}')
-    print(f'🔑 Webhook secret: {webhook_secret[:10]}...' if webhook_secret else '⚠️  STRIPE_WEBHOOK_SECRET não configurado')
-    print(f'📝 Arquivo CSV: {ARQUIVO_USUARIOS}')
-    logger.info(f'Iniciando servidor webhook na porta {port}...')
-    
-    httpd.serve_forever()
+    """Inicia o servidor HTTP"""
+    try:
+        # Usar a porta definida pelo Cloud Run ou 5000 por padrão
+        if port is None:
+            port = int(os.getenv('PORT', 5000))
+        
+        server_address = ('', port)
+        httpd = server_class(server_address, handler_class)
+        logger.info(f'Iniciando servidor webhook na porta {port}...')
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        logger.info('Servidor encerrado')
+        httpd.server_close()
 
 if __name__ == "__main__":
+    inicializar_arquivo_csv()
+    print(f'🚀 Servidor de webhook rodando na porta {int(os.getenv("PORT", 5000))}')
+    print(f'🔑 Webhook secret: {webhook_secret[:10]}...' if webhook_secret else '⚠️  STRIPE_WEBHOOK_SECRET não configurado')
+    print(f'📝 Arquivo CSV: {ARQUIVO_USUARIOS}')
     run()

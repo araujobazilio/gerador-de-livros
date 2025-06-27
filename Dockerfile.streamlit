@@ -11,11 +11,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copiar requirements primeiro para aproveitar o cache do Docker
-COPY requirements.txt .
+COPY requirements.streamlit.txt ./requirements.txt
 
 # Instalar dependências Python com configurações de retry e timeout
 RUN pip install --no-cache-dir --timeout 300 --retries 5 -r requirements.txt
-RUN pip install --no-cache-dir --timeout 300 --retries 5 openai>=1.13.3 langchain langchain-openai
 
 # Copiar o restante do código
 COPY . .
@@ -23,5 +22,5 @@ COPY . .
 # Expor a porta que o Streamlit usa
 EXPOSE 8501
 
-# Comando para iniciar o aplicativo Streamlit
-CMD ["streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+# Comando para iniciar o aplicativo Streamlit simplificado
+CMD ["streamlit", "run", "streamlit_app_simplified.py", "--server.port=8501", "--server.address=0.0.0.0"]

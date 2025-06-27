@@ -1,10 +1,10 @@
-# Dependências para o webhook
+#Dependências principais
+streamlit==1.32.0
 python-dotenv==1.0.0
 firebase-admin==6.2.0
 stripe==7.0.0
 requests==2.31.0
 pandas==2.0.3
-flask==2.0.1
 
 # Dependências para segurança
 cryptography==39.0.0 --only-binary=:all:
@@ -14,3 +14,9 @@ bcrypt==4.0.1 --only-binary=:all:
 PyJWT==2.8.0
 python-dateutil==2.8.2
 pydantic==1.10.8
+
+# Nota: Funcionalidades AI temporariamente removidas para facilitar o deploy
+# openai
+# langchain-openai
+# langchain-core
+# crewai
